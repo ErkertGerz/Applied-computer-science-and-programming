@@ -1,0 +1,65 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+const int MAX = 10;
+
+void zapolniRaznie(int A[][MAX], int N) {
+    bool used[51] = { false }; 
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            int x;
+            do {
+                x = 1 + rand() % 50;
+            } while (used[x]); 
+
+            A[i][j] = x;
+            used[x] = true; 
+        }
+    }
+}
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+    srand(time(0));
+    int N;
+
+    cout << "Введите нечётный N (не более " << MAX << "): ";
+    cin >> N;
+
+    if (N % 2 == 0 || N > MAX) return 1;
+
+    int A[MAX][MAX];
+
+    cout << "\nМатрица " << N << "x" << N << ":\n";
+    zapolniRaznie(A, N);
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << A[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+    int maxVal = A[0][0], maxI = 0, maxJ = 0;
+
+    for (int i = 0; i < N; i++) {
+        if (A[i][i] > maxVal) { maxVal = A[i][i]; maxI = maxJ = i; }
+        if (A[i][N - 1 - i] > maxVal) { maxVal = A[i][N - 1 - i]; maxI = i; maxJ = N - 1 - i; }
+    }
+
+    int center = N / 2;
+    swap(A[center][center], A[maxI][maxJ]);
+
+    cout << "\nМаксимум: " << maxVal << "\nПосле обмена:\n";
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << A[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
