@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    srand(time(0));
+
+    int a = rand() % 6 + 1;  // Первый кубик
+    int b = rand() % 6 + 1;  // Второй кубик
+    int c = 10 - a - b;      // Третий вычисляем
+
+    cout << "Кубики: " << a << " " << b << endl;
+
+    if (c < 1 || c > 6) {
+        cout << "Нет решения!" << endl;
+        return 1;
+    }
+
+    // Заполняем массив по правилу: abcabcabca
+    int code[10];
+    for (int i = 0; i < 10; i++) {
+        if (i % 3 == 0) {
+            code[i] = a;
+        }
+        else if (i % 3 == 1) {
+            code[i] = b;
+        }
+        else {  // i % 3 == 2
+            code[i] = c;
+        }
+    }
+
+    cout << "Код: ";
+    for (int i = 0; i < 10; i++) cout << code[i] << " ";
+
+    return 0;
+}
