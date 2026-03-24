@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+
+	cout << "Часть №1. Задание №11" << endl;
+	cout << "" << endl;  //Разделитель
+
+	cout << "Универмаг в ноябре продал товара на Х млн.р., что на 15% больше, чем в октябре.\nНа какую сумму были проданы товары в октябре?" << std::endl;
+	cout << "" << endl;   //Разделитель
+
+	float A;
+	cout << "Введите кол-во товара, проданного в ноябре (в млн.р): ";   //Ввод переменной
+	cin >> A;
+
+	float end_1 = (A * 100) / 115;   //Пример
+	cout << "Кол-во товара, проданного в октябре, равняется: " << fixed << setprecision(2), cout << end_1 << endl;
+
+
+	return 0;
+}
