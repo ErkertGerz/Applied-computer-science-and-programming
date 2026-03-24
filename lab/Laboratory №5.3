@@ -1,0 +1,71 @@
+#include <iostream>
+
+using namespace std;
+
+const int MAX_ROWS = 10;   // Ввод констант для того, чтобы определить кол-во памяти на матрицу и...
+const int MAX_COLS = 10;   // ...не выходить за её пределы.
+
+// Функция вывода матрицы
+void printMatrix(int matrix[MAX_ROWS][MAX_COLS], int rows, int cols) {   
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			cout << matrix[i][j] << "\t";
+		}
+		cout << endl;
+	}
+}
+
+// Функция сортировки столбца
+void sortMatrix(int matrix[MAX_ROWS][MAX_COLS], int col, int rows) {
+	for (int i = 0; i < rows - 1; i++) {
+		int minEl = i;
+		for (int j = i + 1; j < rows; j++) {
+			if (matrix[j][col] < matrix[minEl][col]) {
+				minEl = j;
+			}
+		}
+		if (minEl != i) {
+			swap(matrix[i][col], matrix[minEl][col]);
+		}
+	}
+}
+
+
+int main() {
+	setlocale(LC_ALL, "RUS");
+
+	// Создание "рабочего" размера матрицы
+	int matrix[MAX_ROWS][MAX_COLS];  
+	int rows, cols;
+	cout << "Введите количество строк и столбцов (1-10): "; cin >> rows >> cols;   
+	
+	// Проверка на саблюдение границ
+	if (rows > MAX_ROWS || cols > MAX_COLS) {   
+		cout << "!ОШИБКА! Слишком большой размер!" << endl;
+		return 1;
+	}
+	if (rows <= 0 || cols <= 0) {   
+		cout << "!ОШИБКА! Слишком маленький размер!" << endl;
+		return 1;
+	}
+
+	// Ввод элементов матрицы
+	cout << "Вводите элементы матрицы: " << endl;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++)
+			cin >> matrix[i][j];
+	}
+
+	cout << "Исходная матрица: " << endl;
+	printMatrix(matrix, rows, cols);
+
+	// Сортировка матрицы по методы Простого выбора
+	for (int col = 0; col < cols; col++) {
+		sortMatrix(matrix, col, rows);
+	}
+
+	cout << "Итоговая матрица после сортировки: " << endl;
+	printMatrix(matrix, rows, cols);
+
+	return 0;
+}
