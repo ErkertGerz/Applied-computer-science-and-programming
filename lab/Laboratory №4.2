@@ -1,0 +1,74 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>  
+#include <algorithm>
+using namespace std;
+
+int naiti_min(vector<vector<int>>& matrica, int stroka) {
+    int min_stolbec = 0;
+    int cols = matrica[stroka].size(); 
+
+    for (int j = 1; j < cols; j++) {
+        if (matrica[stroka][j] < matrica[stroka][min_stolbec]) {
+            min_stolbec = j;
+        }
+    }
+
+    return min_stolbec;
+}
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+    srand(time(0));
+
+    int rows, cols;
+
+    cout << "Введите количество строк: ";
+    cin >> rows;
+    cout << "Введите количество столбцов: ";
+    cin >> cols;
+
+    // Создаём матрицу с введёнными размерами
+    vector<vector<int>> A(rows, vector<int>(cols));
+
+    // Заполняем случайными числами от 10 до 99
+    cout << "\nМатрица " << rows << "x" << cols << ":" << endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            A[i][j] = 10 + rand() % 90;
+            cout << A[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    // Проверяем, что есть вторая и третья строки
+    if (rows < 3) {
+        cout << "\nМатрица слишком маленькая! Нужно минимум 3 строки." << endl;
+        return 1;
+    }
+
+    // Ищем самые маленькие во второй и третьей строках
+    int min2 = naiti_min(A, 1);  // Вторая строка (индекс 1)
+    int min3 = naiti_min(A, 2);  // Третья строка (индекс 2)
+
+    cout << "\nСамый маленький во второй строке: " << A[1][min2];
+    cout << " (столбец " << min2 << ")" << endl;
+
+    cout << "Самый маленький в третьей строке: " << A[2][min3];
+    cout << " (столбец " << min3 << ")" << endl;
+
+    // Меняем их местами
+    swap(A[1][min2], A[2][min3]);
+
+    // Выводим результат
+    cout << "\nПосле обмена:" << endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << A[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
