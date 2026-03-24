@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+
+    int A, B, C, D;
+
+    cout << "Введите числитель первой дроби A: ";
+    cin >> A;
+    cout << "Введите знаменатель первой дроби B: ";
+    cin >> B;
+    cout << "Введите числитель второй дроби C: ";
+    cin >> C;
+    cout << "Введите знаменатель второй дроби D: ";
+    cin >> D;
+
+    int chisl = A * C;   // Новый числитель
+    int znam = B * D; // Новый знаменатель
+ 
+    int NOD = gcd(chisl, znam);
+    
+    chisl = chisl / NOD;
+    znam = znam / NOD;
+
+    cout << "Результат умножения: " << A << "/" << B << " * " << C << "/" << D << " = ";
+    cout << chisl << "/" << znam << endl;
+
+    return 0;
+}
