@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int countDivisors(int num) {
+	int count = 0;
+	for (int i = 1; i <= sqrt(num); i++) {
+		if (num % i == 0) {
+			count += (i * i == num) ? 1 : 2;
+		}
+	}
+	return count;
+}
+
+
+void findNumber(int n) {
+	int maxDivisors = 0;
+	int Number = n;
+
+	int num;
+	for (num = n; num <= n * 2; num++) {
+		int divisors = countDivisors(num);
+
+		if (divisors > maxDivisors) {
+			maxDivisors = divisors;
+			Number = num;
+		    }
+	    }
+	    cout << "Промежуток: " << n << "......." << n*2 << endl;
+	    cout << "Число с наибольшим количеством делителей: " << Number << endl;
+	    cout << "Количество делителей: " << maxDivisors << endl;
+	}
+
+
+	int main() {
+		setlocale(LC_ALL, "RU");
+
+	    int n;
+	    cout << "Введите натуральное число: "; 
+	    cin >> n; 
+
+	    if (n > 0) {
+			findNumber(n);
+		} else {
+		    cout << "Не правильно введённо число!";
+	    }
+
+	    return 0;
+
+}
